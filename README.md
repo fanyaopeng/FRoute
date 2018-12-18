@@ -4,7 +4,7 @@
 ### 1.在公共基础组件中 声明
   `<api 'com.github.fanyaopeng.FRoute:routeAnnotation:1.0.2'
   api 'com.github.fanyaopeng.FRoute:routeApi:1.0.2'>`
-### 2.在各个组件在红添加
+### 2.在各个组件中添加
    annotationProcessor 'com.github.fanyaopeng.FRoute:routeCompiler:1.0.2'
 ### 3.在application中
  `<RouteUtils routeUtils = RouteUtils.getInstance(getApplicationContext());
