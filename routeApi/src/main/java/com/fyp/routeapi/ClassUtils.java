@@ -26,7 +26,7 @@ public class ClassUtils {
         final List<String> result = new ArrayList<>();
         long start = System.currentTimeMillis();
         List<String> apk = getSourcePath(context);
-        if (BuildConfig.DEBUG) {
+        if (RouteUtils.getInstance(context).isDebug) {
             apk.addAll(getDebugSourcePath(context));
         }
         final CountDownLatch countDownLatch = new CountDownLatch(apk.size());

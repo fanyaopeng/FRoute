@@ -25,6 +25,11 @@ public class RouteUtils {
     private Map<String, Class<?>> mPaths;
     private static RouteUtils sInstance;
     private static Context sContext;
+    boolean isDebug;
+
+    public void setDebug(boolean debug) {
+        isDebug = debug;
+    }
 
     public static RouteUtils getInstance(Context context) {
         if (sInstance == null) {
