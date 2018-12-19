@@ -5,12 +5,12 @@
   `<api 'com.github.fanyaopeng.FRoute:routeAnnotation:1.0.2'
   api 'com.github.fanyaopeng.FRoute:routeApi:1.0.2'>`
 ### 2.在各个组件中添加
-   annotationProcessor 'com.github.fanyaopeng.FRoute:routeCompiler:1.0.2'
+   `<annotationProcessor 'com.github.fanyaopeng.FRoute:routeCompiler:1.0.2'
     javaCompileOptions {
             annotationProcessorOptions {
                 arguments=["route_name":project.getName()]
             }
-        }
+        }`>
 ### 3.在application中
  `<RouteUtils routeUtils = RouteUtils.getInstance(getApplicationContext());
   routeUtils.setDebug(BuildConfig.DEBUG);
