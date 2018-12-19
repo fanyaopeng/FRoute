@@ -103,13 +103,10 @@ public class RouteCompile extends AbstractProcessor {
         MethodSpec.Builder methodBuild = MethodSpec.methodBuilder("load").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class)
                 .addParameter(ParameterSpec.builder(mapParam, "paths").build())
                 .returns(void.class);
-        methodBuild.beginControlFlow("try");
         for (AnnotationInfo info : infos) {
             System.out.println("name " + info.getName() + "  path" + info.getPath());
-            methodBuild.addStatement("paths.put($S,$T.forName($S))", info.getName(), Class.class, info.getPath());
+            methodBuild.addStatement("paths.put($S," + info.getPath() + ".class)", info.getName());
         }
-        methodBuild.nextControlFlow("catch($T e)", Exception.class)
-                .endControlFlow();
         TypeSpec AppRoute = TypeSpec.classBuilder("AppRoute")
                 .addModifiers(Modifier.PUBLIC).addSuperinterface(ClassName.get("com.fyp.routeapi", "IRouteLoad"))
                 .addMethod(methodBuild.build()).build();

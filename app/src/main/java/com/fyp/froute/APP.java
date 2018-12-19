@@ -8,6 +8,8 @@ public class APP extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        RouteUtils.getInstance(this).init();
+        RouteUtils routeUtils = RouteUtils.getInstance(this);
+        routeUtils.setDebug(true);
+        routeUtils.init();
     }
 }
