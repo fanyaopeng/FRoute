@@ -6,11 +6,11 @@
     api 'com.github.fanyaopeng.FRoute:routeAnnotation:1.0.2'  
     api 'com.github.fanyaopeng.FRoute:routeApi:1.0.2'
 ### 2.在各个组件中添加
-    在dependencies  
+    在dependencies下  
       
     annotationProcessor 'com.github.fanyaopeng.FRoute:routeCompiler:1.0.2' 
       
-    在defaultCongig下  
+    在defaultConfig下  
       
     javaCompileOptions {  
             annotationProcessorOptions {  
