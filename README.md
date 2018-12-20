@@ -3,12 +3,12 @@
 ### 具体使用 
 ### 1.在公共基础组件中 声明  
 
-    api 'com.github.fanyaopeng.FRoute:routeAnnotation:1.0.2'  
-    api 'com.github.fanyaopeng.FRoute:routeApi:1.0.2'
+    api 'com.github.fanyaopeng.FRoute:routeAnnotation:'+lastVersion  
+    api 'com.github.fanyaopeng.FRoute:routeApi:'+lastVersion
 ### 2.在各个组件中添加
     在dependencies下  
       
-    annotationProcessor 'com.github.fanyaopeng.FRoute:routeCompiler:1.0.2' 
+    annotationProcessor 'com.github.fanyaopeng.FRoute:routeCompiler:'+lastVersion 
       
     在defaultConfig下  
       
