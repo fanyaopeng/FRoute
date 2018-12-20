@@ -5,13 +5,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 描    述：本类 为路由工具  所有需要模块之间跳转的类   获取class文件
- * 可以调用{@link RouteUtils#getTargetClass(String)} 获取实例 可以调用{@link RouteUtils#getTargetInstance(String)}方法
+ * 可以调用{@link RouteUtils#getTargetClass(String)} 获取实例 可以调用{@link RouteUtils#getTargetInstance(String, Object[], Class[])}方法
  * 创 建 人：范要朋
  * 创建日期：2018/10/24 20:53
  * 邮    箱：1094325366@qq.com
@@ -24,7 +26,7 @@ import java.util.Map;
 public class RouteUtils {
     private Map<String, Class<?>> mPaths;
     private static RouteUtils sInstance;
-    private static Context sContext;
+    private Context mContext;
     boolean isDebug;
 
     public void setDebug(boolean debug) {
@@ -43,14 +45,14 @@ public class RouteUtils {
     }
 
     private RouteUtils(Context context) {
-        sContext = context.getApplicationContext();
+        mContext = context.getApplicationContext();
         mPaths = new HashMap<>();
     }
 
     public void init() {
         ClassUtils utils = new ClassUtils();
         try {
-            List<String> path = utils.getPaths(sContext);
+            List<String> path = utils.getPaths(mContext);
             for (String p : path) {
                 IRouteLoad load = (IRouteLoad) Class.forName(p).newInstance();
                 load.load(mPaths);
@@ -60,12 +62,27 @@ public class RouteUtils {
         }
     }
 
-    public Object getTargetInstance(String path) {
+    /**
+     * @param path       路径
+     * @param params     参数
+     * @param paramsType 参数类型
+     * @return
+     */
+    public Object getTargetInstance(String path, Object[] params, Class[] paramsType) {
+        if (params.length != paramsType.length) {
+            throw new IllegalArgumentException("type and params must  match");
+        }
         try {
-            return getTargetClass(path).newInstance();
-        } catch (InstantiationException e) {
+            Class targetCls = getTargetClass(path);
+            Constructor constructor = targetCls.getConstructor(paramsType);
+            return constructor.newInstance(params);
+        } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;
